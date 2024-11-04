@@ -197,9 +197,12 @@ async def get_torrent(url):
         return qinfo
 
 
-async def cache_dl(check=False):
+async def cache_dl(check=False, cached=False):
     if check:
         return _bot.cached
+    if cached:
+        _bot.cached = True
+        return
     try:
         queue = get_queue()
         chat_id, msg_id = list(queue.keys())[1]

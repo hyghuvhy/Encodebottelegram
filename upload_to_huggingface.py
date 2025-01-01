@@ -1,19 +1,31 @@
 import os
-from huggingface_hub import Repository
+import requests
 
 # Configura el token de acceso
 token = os.environ["HUGGING_FACE_TOKEN"]
 
 # Configura el nombre del repositorio
-repo_name = "Sasjj/Encodebottelegram"
+repo_id = "Sasjj/Encodebottelegram"
 
-# Crea una instancia de la clase Repository
-repo = Repository(
-    local_dir=".",  # Directorio local que contiene los archivos a subir
-    repo_type="model",  # Tipo de repositorio (model, dataset, etc.)
-    repo_id=repo_name,  # ID del repositorio
-    token=token,  # Token de acceso
-)
+# Configura la URL de la API
+url = f"https://huggingface.co/api/repos/{repo_id}/tree/main"
 
-# Sube los archivos al repositorio
-repo.push_to_hub(commit_message="Subiendo archivos a Hugging Face")
+# Configura los archivos a subir
+files = {
+    "file": open("tu_archivo.txt", "rb")
+}
+
+# Configura los headers de la solicitud
+headers = {
+    "Authorization": f"Bearer {token}",
+    "Content-Type": "multipart/form-data"
+}
+
+# Envía la solicitud
+response = requests.post(url, headers=headers, files=files)
+
+# Verifica si la solicitud fue exitosa
+if response.status_code == 200:
+    print("Archivos subidos con éxito")
+else:
+    print("Error al subir archivos")

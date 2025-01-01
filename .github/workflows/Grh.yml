@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install dependencies
-        run: |
-          pip install huggingface_hub
       - name: Upload to Hugging Face
         env:
           HUGGING_FACE_TOKEN: ${{ secrets.HUGGING_FACE_TOKEN }}

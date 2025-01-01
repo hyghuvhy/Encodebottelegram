@@ -11,9 +11,10 @@ repo_id = "Sasjj/Encodebottelegram"
 url = f"https://huggingface.co/api/repos/{repo_id}/tree/main"
 
 # Configura los archivos a subir
-files = {
-    "file": open("tu_archivo.txt", "rb")
-}
+files = {}
+for filename in os.listdir("."):
+    if os.path.isfile(filename):
+        files[filename] = open(filename, "rb")
 
 # Configura los headers de la solicitud
 headers = {

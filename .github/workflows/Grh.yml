@@ -14,13 +14,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install huggingface_hub
-          pip install huggingface-cli
-      - name: Login to Hugging Face
+      - name: Upload to Hugging Face
         env:
           HUGGING_FACE_TOKEN: ${{ secrets.HUGGING_FACE_TOKEN }}
         run: |
-          huggingface-cli login --token $HUGGING_FACE_TOKEN
-      - name: Upload to Hugging Face
-        run: |
-          huggingface-cli repo create $GITHUB_REPOSITORY --type model
-          huggingface-cli repo push $GITHUB_REPOSITORY
+          python upload_to_huggingface.py

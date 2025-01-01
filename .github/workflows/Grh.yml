@@ -14,6 +14,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install huggingface_hub
+      - name: Depuración
+        run: |
+          echo "Token de acceso: ${{ secrets.HUGGING_FACE_TOKEN }}"
+          echo "Repositorio: $GITHUB_REPOSITORY"
       - name: Upload to Hugging Face
         env:
           HUGGING_FACE_TOKEN: ${{ secrets.HUGGING_FACE_TOKEN }}

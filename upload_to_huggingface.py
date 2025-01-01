@@ -19,14 +19,18 @@ for filename in os.listdir("."):
 # Configura los headers de la solicitud
 headers = {
     "Authorization": f"Bearer {token}",
-    "Content-Type": "multipart/form-data"
 }
 
 # Envía la solicitud
-response = requests.post(url, headers=headers, files=files)
+for filename, file in files.items():
+    response = requests.put(
+        f"https://huggingface.co/api/repos/{repo_id}/contents/{filename}",
+        headers=headers,
+        data=file,
+    )
 
-# Verifica si la solicitud fue exitosa
-if response.status_code == 200:
-    print("Archivos subidos con éxito")
-else:
-    print("Error al subir archivos")
+    # Verifica si la solicitud fue exitosa
+    if response.status_code == 200:
+        print(f"Archivo {filename} subido con éxito")
+    else:
+        print(f"Error al subir archivo {filename}: {response.text}")
